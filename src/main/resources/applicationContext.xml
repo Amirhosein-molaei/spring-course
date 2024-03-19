@@ -5,6 +5,15 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <bean name="student" class="com.molaei.spring.context.Student"/>
+    <context:component-scan base-package="com.molaei.spring.context"/>
+
+<!--    <bean name="student" class="com.molaei.spring.context.Student" scope="singleton" init-method="init">-->
+<!--        <property name="age" value="20"/>-->
+<!--        <property name="book" ref="historyBook"/>-->
+<!--    </bean>-->
+
+<!--    <bean name="book" class="com.molaei.spring.context.Book" abstract="true"/>-->
+<!--    -->
+<!--    <bean name="historyBook" class="com.molaei.spring.context.HistoryBook"/>-->
 
 </beans>
