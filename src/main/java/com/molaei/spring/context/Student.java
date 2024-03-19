@@ -1,6 +1,7 @@
 package com.molaei.spring.context;
 
 import lombok.*;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,6 +14,9 @@ import org.springframework.stereotype.Component;
 @ToString
 @Component
 public class Student {
+
+    @Autowired
+    private Logger logger;
 
     private int age;
     @Value("reza")
