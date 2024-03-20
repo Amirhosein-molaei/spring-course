@@ -1,17 +1,16 @@
 <%--
   Created by IntelliJ IDEA.
   User: Molaee
-  Date: 3/19/2024
-  Time: 8:59 PM
+  Date: 3/20/2024
+  Time: 9:50 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>product detail</title>
 </head>
 <body>
-    <a href="product/show">Add product</a>
-    <a href="product/get-all">get products</a>
+
 </body>
 </html>

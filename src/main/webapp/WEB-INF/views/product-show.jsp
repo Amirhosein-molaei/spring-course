@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: Molaee
@@ -11,10 +12,20 @@
     <title>Add product</title>
 </head>
 <body>
-    <form action="/product/save" method="post">
-        NAME: <input type="text" name="name"> <br/>
-        PRICE: <input type="text" name="price"> <br/>
+<%--    <form action="/product/save" method="post">--%>
+<%--        NAME: <input type="text" name="name"> <br/>--%>
+<%--        PRICE: <input type="text" name="price"> <br/>--%>
+<%--        Type:--%>
+<%--        <input type="submit" value="add product">--%>
+<%--    </form>--%>
+
+    <form:form action="/product/save" method="post" modelAttribute="dto">
+        NAME : <form:input path="name" /> <br/>
+        PRICE : <form:input path="price" /> <br/>
+        TYPE: <form:select path="type">
+                <form:options items="${dto.validTypes}"/>
+            </form:select>
         <input type="submit" value="add product">
-    </form>
+    </form:form>
 </body>
 </html>
