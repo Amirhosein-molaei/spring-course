@@ -2,14 +2,19 @@ package com.molaei.controllers;
 
 import com.molaei.models.ProductDTO;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 @RequestMapping("/product")
@@ -20,7 +25,14 @@ public class ProductController {
         add(new ProductDTO(102,"benz",1000, "home"));
         add(new ProductDTO(21,"toyota",2000, "work"));
     }};
-    Logger logger = Logger.getLogger(ProductController.class);
+
+    @Autowired
+    Logger logger;
+
+    @Autowired
+    MessageSource source;
+
+//    Logger logger = Logger.getLogger(ProductController.class);
 
     @GetMapping("/show")
     public String show(@ModelAttribute("dto") ProductDTO productDTO){
@@ -28,9 +40,13 @@ public class ProductController {
     }
 
     @PostMapping(value = "/save")
-    public String save(@ModelAttribute("dto") ProductDTO productDTO){
-//        SecureRandom random = new SecureRandom();
-//        productDTO.setId(random.nextInt(1000));
+    public String save(@ModelAttribute("dto") @Valid ProductDTO productDTO, BindingResult bindingResult, Locale locale){
+
+//        source.getMessage("error.name", new Locale(locale.getCountry()));
+
+        if (bindingResult.hasErrors()){
+            return "product-show";
+        }
         productDTOS.add(productDTO);
         logger.debug(productDTO);
         //TODO must persist dto in database

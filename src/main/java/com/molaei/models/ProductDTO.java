@@ -1,8 +1,12 @@
 package com.molaei.models;
 
+
 import lombok.*;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @ToString
@@ -12,10 +16,14 @@ import java.util.Map;
 public class ProductDTO {
 
     private int id;
+    @Size(min = 3,message = "{error.name}")
     private String name;
+    @Min(value = 1000,message = "{error.price}")
     private int price;
     private String type;
     private Map<String,String> validTypes;
+    private String color;
+    private List<Integer> sizes;
 
     public ProductDTO(){
         validTypes = new HashMap<String, String>();

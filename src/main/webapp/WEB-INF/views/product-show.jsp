@@ -1,4 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="mvc" uri="http://www.springframework.org/tags" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--
   Created by IntelliJ IDEA.
   User: Molaee
@@ -6,7 +8,6 @@
   Time: 5:39 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Add product</title>
@@ -18,13 +19,21 @@
 <%--        Type:--%>
 <%--        <input type="submit" value="add product">--%>
 <%--    </form>--%>
+<h2><mvc:message code="product.title" text="ADD ALT"/></h2>
 
-    <form:form action="/product/save" method="post" modelAttribute="dto">
+    <form:form commandName="dto" action="/product/save" method="post" modelAttribute="dto">
         NAME : <form:input path="name" /> <br/>
+            <form:errors path="name" cssStyle="color: crimson" />
         PRICE : <form:input path="price" /> <br/>
+        <form:errors path="price" cssStyle="color: crimson" />
+
         TYPE: <form:select path="type">
                 <form:options items="${dto.validTypes}"/>
             </form:select>
+        Color:
+        Black <form:radiobutton path="color" value="black"/>
+        Green <form:radiobutton path="color" value="green"/>
+        Blue <form:radiobutton path="color" value="blue"/>
         <input type="submit" value="add product">
     </form:form>
 </body>

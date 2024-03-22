@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/product/rest")
 public class ProductRestService {
-    Logger logger = Logger.getLogger(ProductController.class);
+    Logger logger = Logger.getLogger(ProductRestService.class);
 
     List<ProductDTO> productDTOS = new ArrayList<ProductDTO>()
     {{
