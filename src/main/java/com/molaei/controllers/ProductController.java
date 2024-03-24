@@ -1,6 +1,9 @@
 package com.molaei.controllers;
 
 import com.molaei.models.ProductDTO;
+import com.molaei.service.ProductService;
+import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -11,28 +14,17 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.security.SecureRandom;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Locale;
 
 @Controller
 @RequestMapping("/product")
+@Log4j
+@AllArgsConstructor
 public class ProductController {
 
-    List<ProductDTO> productDTOS = new ArrayList<ProductDTO>()
-    {{
-        add(new ProductDTO(102,"benz",1000, "home"));
-        add(new ProductDTO(21,"toyota",2000, "work"));
-    }};
-
-    @Autowired
-    Logger logger;
-
-    @Autowired
-    MessageSource source;
-
-//    Logger logger = Logger.getLogger(ProductController.class);
+    ProductService service;
 
     @GetMapping("/show")
     public String show(@ModelAttribute("dto") ProductDTO productDTO){
@@ -47,16 +39,16 @@ public class ProductController {
         if (bindingResult.hasErrors()){
             return "product-show";
         }
-        productDTOS.add(productDTO);
-        logger.debug(productDTO);
-        //TODO must persist dto in database
+        log.debug(productDTO);
+        service.save(productDTO);
         return "redirect:/";
     }
 
     @GetMapping(value = "/get-all")
     public ModelAndView getAll(ModelAndView modelAndView){
         modelAndView.setViewName("product-list");
-        modelAndView.getModelMap().addAttribute("list", productDTOS);
+        List<ProductDTO> productDTOList = service.findAll();
+        modelAndView.addObject("list", productDTOList);
         return modelAndView;
     }
 
@@ -68,8 +60,14 @@ public class ProductController {
 
     @GetMapping("/detail/{id}")
     public String detailWithPathParam(@PathVariable("id") int id){
-        logger.debug(id);
+        log.debug(id);
         //TODO get the product and add it to model and then dispatch it ti the view
         return "product-detail";
+    }
+
+    @GetMapping("/delete")
+    public String delete(ProductDTO.DELETE dto){
+        service.delete(dto);
+        return "redirect:/product/get-all";
     }
 }

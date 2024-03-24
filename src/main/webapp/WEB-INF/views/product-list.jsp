@@ -32,8 +32,8 @@
                         <img src="/resource/img/product.jpg" alt="">
                     </a>
                 </td>
-                <td>X</td>
-                <td>E</td>
+                <td><a href="/product/delete?id=${productDTO.id}">DELETE</a></td>
+                <td><a href="/product/edit?id=${productDTO.id}">EDIT</a></td>
             </tr>
         </c:forEach>
     </table>

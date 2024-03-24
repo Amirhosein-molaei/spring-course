@@ -1,6 +1,7 @@
 package com.molaei.config;
 
 import org.apache.log4j.Logger;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.InjectionPoint;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -22,7 +23,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
-@ComponentScan("com.molaei.controllers")
+@ComponentScan({"com.molaei.controllers", "com.molaei.service", "com.molaei.data"})
 @EnableWebMvc
 public class WebConfig implements WebMvcConfigurer {
 
@@ -40,7 +41,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/resource/**").addResourceLocations("/resource/");
     }
 
-    // ** logger with different class names **
+    // *** logger with different class names ***
     @Bean
     @Scope("prototype")
     public Logger produceLogger(InjectionPoint injectionPoint){
@@ -73,5 +74,10 @@ public class WebConfig implements WebMvcConfigurer {
     @Bean
     public LocaleResolver localeResolver(){
         return new CookieLocaleResolver();
+    }
+
+    @Bean
+    public ModelMapper mapper(){
+        return new ModelMapper();
     }
 }

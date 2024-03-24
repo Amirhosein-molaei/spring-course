@@ -1,9 +1,11 @@
-package com.molaei.entities;
+package com.molaei.data.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -20,10 +22,16 @@ public class Product {
 
     @Column
     private String name;
+
     @Column
     private String price;
 
+    @Column
+    private String color;
+    //TODO how to automatically fill these when persisting ?
+    @CreationTimestamp
     private Date createDate;
+    @UpdateTimestamp
     private Date updateDate;
     private Boolean active;
 }

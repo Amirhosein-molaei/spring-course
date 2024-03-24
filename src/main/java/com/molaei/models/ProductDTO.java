@@ -16,10 +16,13 @@ import java.util.Map;
 public class ProductDTO {
 
     private int id;
+
     @Size(min = 3,message = "{error.name}")
     private String name;
+
     @Min(value = 1000,message = "{error.price}")
     private int price;
+
     private String type;
     private Map<String,String> validTypes;
     private String color;
@@ -37,5 +40,14 @@ public class ProductDTO {
         this.name = name;
         this.price = price;
         this.type = type;
+    }
+
+    public static class CREATE extends ProductDTO{
+
+    }
+
+    @Data
+    public static class DELETE{
+        private int id;
     }
 }
