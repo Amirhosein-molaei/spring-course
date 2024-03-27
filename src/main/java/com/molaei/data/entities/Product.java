@@ -1,37 +1,60 @@
 package com.molaei.data.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import lombok.*;
+import org.hibernate.validator.constraints.Range;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
-import java.util.Date;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Entity
-@Setter
-@Getter
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
-public class Product {
+public class Product extends Audit implements Serializable {
+
+    public Product(){
+        categoryList = new HashMap<>();
+        categoryList.put("LapTop", "LapTop");
+        categoryList.put("TV", "TV");
+        categoryList.put("mobile", "mobile");
+    }
+    private static final Long serialVersionUID = 100L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long productId;
 
-    @Column
-    private String name;
+    @NotEmpty
+    private String productName;
 
-    @Column
-    private String price;
+    @NotEmpty
+    private String productBrand;
 
-    @Column
-    private String color;
-    //TODO how to automatically fill these when persisting ?
-    @CreationTimestamp
-    private Date createDate;
-    @UpdateTimestamp
-    private Date updateDate;
-    private Boolean active;
+    @NotEmpty
+    private String productModel;
+
+    @NotEmpty
+    private String productDescription;
+
+    @NotNull
+    @Range(min = 0)
+    private Double productPrice;
+
+    @NotNull
+    @Range(min = 0)
+    private Double unitInStock;
+
+    @Transient
+    private MultipartFile productImage;
+
+    @OneToMany(mappedBy = "product")
+    private List<CardItem> cardItems;
+
+    @Transient
+    private Map<String, String> categoryList;
 }

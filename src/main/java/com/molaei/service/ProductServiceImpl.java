@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,7 +23,6 @@ public class ProductServiceImpl implements ProductService{
 
     public void save(ProductDTO dto) {
         Product product = mapper.map(dto, Product.class);
-        product.setCreateDate(new Date());
         productDAO.save(product);
     }
 

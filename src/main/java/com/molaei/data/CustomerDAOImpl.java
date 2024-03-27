@@ -1,0 +1,48 @@
+package com.molaei.data;
+
+import com.molaei.data.entities.Customer;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.List;
+
+@Repository
+public class CustomerDAOImpl implements CustomerDAO{
+
+    @Autowired
+    SessionFactory sessionFactory;
+
+    @PersistenceContext
+    EntityManager entityManager;
+
+    @Override
+    public void save(Customer customer) {
+        Session currentSession = sessionFactory.openSession();
+        currentSession.save(customer);
+        currentSession.close();
+    }
+
+    @Override
+    public Customer findUserByusername(String username) {
+        return null;
+    }
+
+    @Override
+    public List<Customer> findAll() {
+        return null;
+    }
+
+    @Override
+    public Customer findOne(long customerId) {
+        return null;
+    }
+
+    @Override
+    public Customer findCustomerByUsernameAndPassword(String username, String password) {
+        return null;
+    }
+}
